@@ -32,3 +32,14 @@ func CarsCreate(c *gin.Context) {
 		"car": car,
 	})
 }
+
+func GetCars(c *gin.Context) {
+	//GET CARS
+	var cars []models.Car
+	initializers.DB.Find(&cars)
+
+    //RESPONSD WITH THE DATA
+	c.JSON(200, gin.H{
+		"cars": cars,
+	})
+}

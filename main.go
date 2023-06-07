@@ -15,6 +15,7 @@ func init() {
 func main() {
 	r := gin.Default()
     r.POST("/cars", controllers.CarsCreate)
+	r.GET("/cars", controllers.GetCars)
     r.Run() 
 }
  
