@@ -1,8 +1,8 @@
 package main
 
 import (
+	"crud-go/controllers"
 	"crud-go/initializers"
-	"fmt"
 
 	"github.com/gin-gonic/gin"
 )
@@ -14,12 +14,7 @@ func init() {
 
 func main() {
 	r := gin.Default()
-    r.GET("/ping", func(c *gin.Context) {
-        c.JSON(200, gin.H{
-            "message": "pong",
-        })
-    })
+    r.POST("/cars", controllers.CarsCreate)
     r.Run() 
-	fmt.Println("Hello world!")
 }
  
