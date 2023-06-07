@@ -43,3 +43,17 @@ func GetCars(c *gin.Context) {
 		"cars": cars,
 	})
 }
+
+func GetCarByID(c *gin.Context) {
+	//GET ID FROM URL
+	id := c.Param("id")
+
+	//GET CAR BY ID
+	var car models.Car
+	initializers.DB.First(&car, id)
+
+	//RESPONSD WITH THE DATA
+	c.JSON(200, gin.H{
+        "car": car,
+    })
+}
