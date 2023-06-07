@@ -18,6 +18,7 @@ func main() {
 	r.GET("/cars", controllers.GetCars)
 	r.GET("/cars/:id", controllers.GetCarByID)
 	r.PUT("/cars/:id", controllers.UpdateCarByID)
+	r.DELETE("/cars/:id", controllers.CarDelete)
     r.Run() 
 }
  
