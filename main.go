@@ -17,6 +17,7 @@ func main() {
     r.POST("/cars", controllers.CarsCreate)
 	r.GET("/cars", controllers.GetCars)
 	r.GET("/cars/:id", controllers.GetCarByID)
+	r.PUT("/cars/:id", controllers.UpdateCarByID)
     r.Run() 
 }
  
