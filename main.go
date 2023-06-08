@@ -16,11 +16,11 @@ func init() {
 func main() {
 	r := gin.Default()
 	//CAR APIS
-    r.POST("/cars", controllers.CarsCreate)
-	r.GET("/cars", controllers.GetCars)
-	r.GET("/cars/:id", controllers.GetCarByID)
-	r.PUT("/cars/:id", controllers.UpdateCarByID)
-	r.DELETE("/cars/:id", controllers.CarDelete)
+    r.POST("/cars", middleware.RequireAuth ,controllers.CarsCreate)
+	r.GET("/cars", middleware.RequireAuth,controllers.GetCars)
+	r.GET("/cars/:id", middleware.RequireAuth,controllers.GetCarByID)
+	r.PUT("/cars/:id", middleware.RequireAuth, controllers.UpdateCarByID)
+	r.DELETE("/cars/:id", middleware.RequireAuth, controllers.CarDelete)
 
 	//USER APIS
 	r.POST("/signup", controllers.Signup)
