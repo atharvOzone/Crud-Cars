@@ -14,9 +14,9 @@ import (
 
 func RequireAuth(c *gin.Context) {
 	//GET THE COOKIE OFF REQUEST
-	tokenString, err := c.Cookie("Authorization")
+	tokenString := c.GetHeader("Authorization")
 
-	if err!= nil {
+	if tokenString == "" {
 		c.AbortWithStatus(http.StatusUnauthorized)
 	}
 
@@ -28,6 +28,10 @@ func RequireAuth(c *gin.Context) {
 
 		return []byte(os.Getenv("SECRET")),nil
 	})
+
+	if err != nil {
+		c.AbortWithStatus(http.StatusUnauthorized)
+	}
 
 	if claims, ok := token.Claims.(jwt.MapClaims); ok && token.Valid {
 
