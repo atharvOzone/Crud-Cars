@@ -1,8 +1,8 @@
 package handlers
 
 import (
-	"crud-go/pkg/cars/initializers"
-	"crud-go/pkg/cars/models"
+	services "crud-go/pkg/cars/service"
+	"crud-go/pkg/cars/store"
 
 	"github.com/gin-gonic/gin"
 )
@@ -19,8 +19,13 @@ func CarDelete(c *gin.Context) {
 	//GET THE ID FROM URL
 	id := c.Param("id")
 
+	deleteService := services.NewDeleteService(store.GetStore())
 	//Delete car
-	initializers.DB.Delete(&models.Car{}, id)
+	err := deleteService.CarDelete(c, id)
+	if err!= nil {
+        c.JSON(400, gin.H{"error": "Failed to delete the car"})
+        return
+    }
 
 	//Respond
 	c.Status(200)

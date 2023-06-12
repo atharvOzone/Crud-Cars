@@ -2,10 +2,12 @@ package main
 
 import (
 	// "crud-go/controllers"
-	"crud-go/pkg/cars/initializers"
-	"crud-go/pkg/cars/middleware"
 	handlers "crud-go/pkg/cars/handlers/car"
 	handlerUser "crud-go/pkg/cars/handlers/user"
+	"crud-go/pkg/cars/initializers"
+	"crud-go/pkg/cars/middleware"
+	services "crud-go/pkg/cars/service"
+	"crud-go/pkg/cars/store"
 
 	"github.com/gin-gonic/gin"
 )
@@ -18,7 +20,10 @@ func init() {
 func main() {
 	r := gin.Default()
 	//CAR APIS
-    r.POST("/cars", middleware.RequireAuth ,handlers.CarsCreate)
+	carStore := store.GetStore()
+	carService := services.NewCreateService(carStore)
+	carCreateHandler := handlers.NewCreateHandler(carService)
+    r.POST("/cars", middleware.RequireAuth ,carCreateHandler.CarsCreate)
 	r.GET("/cars", middleware.RequireAuth,handlers.GetCars)
 	r.GET("/cars/:id", middleware.RequireAuth,handlers.GetCarByID)
 	r.PUT("/cars/:id", middleware.RequireAuth, handlers.UpdateCarByID)

@@ -1,8 +1,8 @@
 package handlers
 
 import (
-	"crud-go/pkg/cars/initializers"
-	"crud-go/pkg/cars/models"
+	services "crud-go/pkg/cars/service"
+	"crud-go/pkg/cars/store"
 
 	"github.com/gin-gonic/gin"
 )
@@ -17,11 +17,8 @@ import (
 // @Router       /cars [get]
 func GetCars(c *gin.Context) {
 	//GET CARS
-	var cars []models.Car
-	initializers.DB.Find(&cars)
+	getService := services.NewGetService(store.GetStore())
 
     //RESPONSD WITH THE DATA
-	c.JSON(200, gin.H{
-		"cars": cars,
-	})
+	getService.GetCars(c)
 }
