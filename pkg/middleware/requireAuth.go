@@ -1,12 +1,14 @@
 package middleware
 
 import (
-	"crud-go/initializers"
-	"crud-go/models"
+	// "crud-go/initializers"
+	"crud-go/pkg/models"
 	"fmt"
 	"net/http"
 	"os"
 	"time"
+
+	initializers "crud-go/pkg/initializers"
 
 	"github.com/gin-gonic/gin"
 	"github.com/golang-jwt/jwt/v5"

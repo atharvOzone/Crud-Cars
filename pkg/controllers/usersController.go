@@ -1,8 +1,8 @@
 package controllers
 
 import (
-	"crud-go/initializers"
-	"crud-go/models"
+	"crud-go/pkg/initializers"
+	"crud-go/pkg/models"
 	"net/http"
 	"os"
 	"time"

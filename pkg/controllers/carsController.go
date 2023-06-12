@@ -1,8 +1,9 @@
 package controllers
 
 import (
-	"crud-go/initializers"
-	"crud-go/models"
+	// "crud-go/initializers"
+	"crud-go/pkg/models"
+	"crud-go/pkg/initializers"
 
 	"github.com/gin-gonic/gin"
 )
