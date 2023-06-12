@@ -1,4 +1,4 @@
-package controllers
+package handlers
 
 import (
 	"crud-go/pkg/cars/initializers"
@@ -11,45 +11,6 @@ import (
 	"github.com/golang-jwt/jwt/v5"
 	"golang.org/x/crypto/bcrypt"
 )
-
-func Signup(c *gin.Context) {
-	//GET THE EMAIL & PASSWORD FROM REQUEST
-	var body struct {
-		Email string
-		Password string
-	}
-
-	if c.Bind(&body) != nil {
-		c.JSON(http.StatusBadRequest, gin.H{
-			"error": "Failed to read body",
-		})
-	}
-	//HASH THE PASSWORD
-	hash, err := bcrypt.GenerateFromPassword([]byte(body.Password), 10)
-
-	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{
-			"error": "Fauled to hash password",
-		})
-		return
-	}
-
-	//CREATE THE USER
-	user := models.User{Email: body.Email, Password: string(hash)}
-	result := initializers.DB.Create(&user)
-
-	if result.Error!= nil {
-		c.JSON(http.StatusBadRequest, gin.H{
-			"error": "Failed to create user",
-        })
-		return
-	}
-
-	//RESPOND
-	c.JSON(http.StatusCreated, gin.H{
-        "message": "Successfully created user",
-    })
-}
 
 func Login(c *gin.Context) {
 	//Get the email and password from the request
@@ -107,12 +68,4 @@ func Login(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{
         "token": tokenString,
     })
-}
-
-func Validate (c *gin.Context) {
-	user,_ := c.Get("user")
-
-	c.JSON(http.StatusOK, gin.H{
-		"Details of the User": user,
-	})	
 }
