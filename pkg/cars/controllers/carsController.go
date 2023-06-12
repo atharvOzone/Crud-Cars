@@ -2,8 +2,8 @@ package controllers
 
 import (
 	// "crud-go/initializers"
-	"crud-go/pkg/models"
-	"crud-go/pkg/initializers"
+	"crud-go/pkg/cars/models"
+	"crud-go/pkg/cars/initializers"
 
 	"github.com/gin-gonic/gin"
 )

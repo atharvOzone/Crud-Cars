@@ -2,9 +2,9 @@ package main
 
 import (
 	// "crud-go/controllers"
-	"crud-go/pkg/initializers"
-	"crud-go/pkg/middleware"
-	"crud-go/pkg/controllers"
+	"crud-go/pkg/cars/initializers"
+	"crud-go/pkg/cars/middleware"
+	"crud-go/pkg/cars/controllers"
 
 	"github.com/gin-gonic/gin"
 )
