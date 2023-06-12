@@ -6,7 +6,14 @@ import (
 
 	"github.com/gin-gonic/gin"
 )
-
+// CreateItem UpdateCarByID
+// @Summary      updates the car by given id
+// @Description  updates the car by given id
+// @Tags         Cars
+// @Accept       json
+// @Produce      json
+// @Param        car body models.Car true "Car"
+// @Router       /cars/:id [put]
 func UpdateCarByID(c *gin.Context) {
 	//GET ID FROM URL
 	id := c.Param("id")

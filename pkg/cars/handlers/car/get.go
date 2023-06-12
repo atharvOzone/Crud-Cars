@@ -7,6 +7,14 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// CreateItem GetCars
+// @Summary      Get all the cars
+// @Description  Get all the cars
+// @Tags         Cars
+// @Accept       json
+// @Produce      json
+// @Param        car body models.Car true "Car"
+// @Router       /cars [get]
 func GetCars(c *gin.Context) {
 	//GET CARS
 	var cars []models.Car

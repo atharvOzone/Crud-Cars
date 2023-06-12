@@ -1,0 +1,144 @@
+definitions:
+  crud-go_pkg_cars_models.Car:
+    properties:
+      car_NAME:
+        type: string
+      company_NAME:
+        type: string
+      createdAt:
+        type: string
+      deletedAt:
+        $ref: '#/definitions/gorm.DeletedAt'
+      id:
+        type: integer
+      price:
+        type: number
+      updatedAt:
+        type: string
+      year:
+        type: integer
+    type: object
+  gorm.DeletedAt:
+    properties:
+      time:
+        type: string
+      valid:
+        description: Valid is true if Time is not NULL
+        type: boolean
+    type: object
+  httputil.HTTPError:
+    properties:
+      code:
+        example: 400
+        type: integer
+      message:
+        example: status bad request
+        type: string
+    type: object
+info:
+  contact: {}
+paths:
+  /cars:
+    get:
+      consumes:
+      - application/json
+      description: Get all the cars
+      parameters:
+      - description: Car
+        in: body
+        name: car
+        required: true
+        schema:
+          $ref: '#/definitions/crud-go_pkg_cars_models.Car'
+      produces:
+      - application/json
+      responses: {}
+      summary: Get all the cars
+      tags:
+      - Cars
+    post:
+      consumes:
+      - application/json
+      description: Create a new car
+      parameters:
+      - description: Car
+        in: body
+        name: car
+        required: true
+        schema:
+          $ref: '#/definitions/crud-go_pkg_cars_models.Car'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Car created successfully
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/httputil.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/httputil.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/httputil.HTTPError'
+      summary: Create a Car
+      tags:
+      - Cars
+  /cars/:id:
+    delete:
+      consumes:
+      - application/json
+      description: Delete a car by Id
+      parameters:
+      - description: Car
+        in: body
+        name: car
+        required: true
+        schema:
+          $ref: '#/definitions/crud-go_pkg_cars_models.Car'
+      produces:
+      - application/json
+      responses: {}
+      summary: Delete a Car
+      tags:
+      - Cars
+    get:
+      consumes:
+      - application/json
+      description: Get car by id
+      parameters:
+      - description: Car
+        in: body
+        name: car
+        required: true
+        schema:
+          $ref: '#/definitions/crud-go_pkg_cars_models.Car'
+      produces:
+      - application/json
+      responses: {}
+      summary: Get car by id
+      tags:
+      - Cars
+    put:
+      consumes:
+      - application/json
+      description: updates the car by given id
+      parameters:
+      - description: Car
+        in: body
+        name: car
+        required: true
+        schema:
+          $ref: '#/definitions/crud-go_pkg_cars_models.Car'
+      produces:
+      - application/json
+      responses: {}
+      summary: updates the car by given id
+      tags:
+      - Cars
+swagger: "2.0"
