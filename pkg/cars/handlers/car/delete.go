@@ -19,7 +19,7 @@ func CarDelete(c *gin.Context) {
 	//GET THE ID FROM URL
 	id := c.Param("id")
 
-	deleteService := services.NewDeleteService(store.GetStore())
+	deleteService := services.NewCarService(store.GetStore())
 	//Delete car
 	err := deleteService.CarDelete(c, id)
 	if err!= nil {

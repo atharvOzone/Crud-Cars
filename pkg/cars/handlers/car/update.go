@@ -17,7 +17,7 @@ import (
 // @Router       /cars/:id [put]
 func UpdateCarByID(c *gin.Context) {
 	//GET ID FROM URL
-	updateService := services.NewUpdateService(store.GetStore())
+	updateService := services.NewCarService(store.GetStore())
 	updateService.UpdateCarByID(c)
 	//RESPOND WITH THE DATA
 

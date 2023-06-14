@@ -1,22 +1,10 @@
 package services
 
 import (
-	"crud-go/pkg/cars/store"
-
 	"github.com/gin-gonic/gin"
 )
 
-type DeleteService struct {
-	store store.Store
-}
-
-func NewDeleteService(store store.Store) *DeleteService {
-	return &DeleteService{
-		store: store,
-	}
-}
-
-func (s *DeleteService) CarDelete(c *gin.Context, id string) error {
+func (s *carService) CarDelete(c *gin.Context, id string) error {
 	//GET ID FROM THE URL
 	//DELETE CAR
 	err := s.store.CarDelete(id)

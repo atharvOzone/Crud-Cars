@@ -2,22 +2,11 @@ package services
 
 import (
 	"crud-go/pkg/cars/models"
-	"crud-go/pkg/cars/store"
 
 	"github.com/gin-gonic/gin"
 )
 
-type UpdateService struct {
-	store store.Store
-}
-
-func NewUpdateService(store store.Store) *UpdateService {
-	return &UpdateService{
-        store: store,
-    }
-}
-
-func (s *UpdateService) UpdateCarByID(c *gin.Context) {
+func (s *carService) UpdateCarByID(c *gin.Context) {
 	//GET ID FROM THE URL
 	id := c.Param("id")
 

@@ -17,7 +17,7 @@ import (
 // @Router       /cars [get]
 func GetCars(c *gin.Context) {
 	//GET CARS
-	getService := services.NewGetService(store.GetStore())
+	getService := services.NewCarService(store.GetStore())
 
     //RESPONSD WITH THE DATA
 	getService.GetCars(c)
