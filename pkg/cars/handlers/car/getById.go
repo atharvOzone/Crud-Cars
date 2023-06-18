@@ -1,8 +1,7 @@
 package handlers
 
 import (
-	services "crud-go/pkg/cars/service"
-	"crud-go/pkg/cars/store"
+	"net/http"
 
 	"github.com/gin-gonic/gin"
 )
@@ -15,10 +14,25 @@ import (
 // @Produce      json
 // @Param        car body models.Car true "Car"
 // @Router       /cars/:id [get]
-func GetCarByID(c *gin.Context) {
+func (h *Handler) GetCarByID(c *gin.Context) {
 	//GET ID FROM URL
-	getService := services.NewCarService(store.GetStore())
+	// id := c.Param("id")
+	// getService := services.NewCarService(store.GetStore())
 
-	//RESPONSD WITH THE DATA
-	getService.GetCarByID(c)
+	// //RESPONSD WITH THE DATA
+	// getService.GetCarByID(c)
+
+	id := c.Param("id")
+	err, car := h.Service.GetCarByID(id)
+	if err!=nil {
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"error": "Failed to recover the movie",
+		})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{
+		"Car": car,
+	})
+
 }

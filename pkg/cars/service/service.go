@@ -3,24 +3,22 @@ package services
 import (
 	"crud-go/pkg/cars/models"
 	"crud-go/pkg/cars/store"
-
-	"github.com/gin-gonic/gin"
 )
 
 type CarService interface {
-	CarsCreate(c *gin.Context, car *models.Car)
-	GetCars(c *gin.Context)
-	GetCarByID(c *gin.Context)
-	UpdateCarByID(c *gin.Context)
-	CarDelete(id string)
+	CarsCreate(car models.Car) error
+	GetCars(page, pageSize int) (error, []models.Car)
+	GetCarByID(id string) (error, models.Car)
+	UpdateCarByID(id string, updatedCar models.Car) error
+	CarDelete(id string) error
 }
 
 type carService struct{
 	store store.Store
 }
 
-func NewCarService(store store.Store) *carService {
+func New() CarService {
 	return &carService{
-		store: store,
+		store: store.GetStore(),
 	}
 }

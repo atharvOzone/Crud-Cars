@@ -1,8 +1,8 @@
 package handlers
 
 import (
-	services "crud-go/pkg/cars/service"
-	"crud-go/pkg/cars/store"
+	"net/http"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
 )
@@ -15,10 +15,25 @@ import (
 // @Produce      json
 // @Param        car body models.Car true "Car"
 // @Router       /cars [get]
-func GetCars(c *gin.Context) {
-	//GET CARS
-	getService := services.NewCarService(store.GetStore())
+func (h *Handler) GetCars(c *gin.Context) {
+	pagestr := c.Query("page")
+	page, err := strconv.Atoi(pagestr)
+	if err!=nil{
+		page = 1
+	}
+	pageSizeStr := c.Query("pageSize")
+	pageSize, err := strconv.Atoi(pageSizeStr)
+	if err!=nil{
+		pageSize = 10
+	}
 
-    //RESPONSD WITH THE DATA
-	getService.GetCars(c)
+	err, car := h.Service.GetCars(page, pageSize)
+	if err!=nil {
+		c.JSON(500, gin.H{"error": "Failed to load required data"})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{
+		"Car": car,
+	})
 }

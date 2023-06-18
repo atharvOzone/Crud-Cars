@@ -8,16 +8,20 @@ import (
 )
 
 type Store interface {
-	CarsCreate(car *models.Car) error
+	CarsCreate(car models.Car) error
 	CarDelete(id string) error
-	GetCars() ([]models.Car, error)
-	GetCarByID(id string) (*models.Car, error)
-	UpdateCarByID(car *models.Car) error
+	GetCars(page, pageSize, offset int) (error, []models.Car)
+	GetCarByID(id string) (error, models.Car)
+	UpdateCarByID(initialCar, updatedCar models.Car) error
 }
 
 type DBCarStore struct {
 	DB *gorm.DB
 }
+
+
+var carStore Store
+
 
 func NewStore() Store {
 	db, err := initializers.ReturnDB()
@@ -29,8 +33,6 @@ func NewStore() Store {
 	}
 }
 
-var carStore Store
-
 func GetStore() Store {
 	if carStore == nil {
         carStore = NewStore()
@@ -39,44 +41,34 @@ func GetStore() Store {
 }
 
 
-func (s *DBCarStore) CarsCreate(car *models.Car) error {
-	result := s.DB.Create(car)
-	if result.Error!= nil {
-        return result.Error
-    }
-	return nil
+func (s *DBCarStore) CarsCreate(car models.Car) error {
+	// result := s.DB.Create(car)
+	// if result.Error!= nil {
+    //     return result.Error
+    // }
+	// return nil
+	return s.DB.Create(car).Error
 }
 
 func (s *DBCarStore) CarDelete(id string) error {
-	result := s.DB.Delete(&models.Car{},id)
-	if result.Error!= nil {
-        return result.Error
-    }
-	return nil
+	// result := s.DB.Delete(&models.Car{},id)
+	// if result.Error!= nil {
+    //     return result.Error
+    // }
+	// return nil
+	return s.DB.Delete(&models.Car{}, id).Error
 }
 
-func (s *DBCarStore) GetCars() ([]models.Car, error) {
+func (s *DBCarStore) GetCars(page, pageSize, offset int) (error, []models.Car) {
 	var cars []models.Car
-    result := s.DB.Find(&cars)
-    if result.Error!= nil {
-        return nil, result.Error
-    }
-    return cars, nil
+	return s.DB.Offset(offset).Limit(pageSize).Find(&cars).Error, cars
 }
 
-func (s *DBCarStore) GetCarByID(id string) (*models.Car, error) {
+func (s *DBCarStore) GetCarByID(id string) (error, models.Car) {
 	var car models.Car
-	result := s.DB.First(&car, id)
-	if result.Error!= nil {
-        return nil, result.Error
-    }
-	return &car, nil
+	return s.DB.First(&car, id).Error, car
 }
 
-func (s *DBCarStore) UpdateCarByID(car *models.Car) error {
-	result := s.DB.Model(&car).Updates(car)
-	if result.Error!= nil {
-        return result.Error
-    }
-	return nil
+func (s *DBCarStore) UpdateCarByID(initialCar, updatedCar models.Car) error {
+	return s.DB.Model(&initialCar).Where("car_id = ?", initialCar.CAR_ID).Updates(updatedCar).Error
 }

@@ -1,9 +1,6 @@
 package handlers
 
 import (
-	services "crud-go/pkg/cars/service"
-	"crud-go/pkg/cars/store"
-
 	"github.com/gin-gonic/gin"
 )
 
@@ -15,18 +12,20 @@ import (
 // @Produce      json
 // @Param        car body models.Car true "Car"
 // @Router       /cars/:id [delete]
-func CarDelete(c *gin.Context) {
+func (h *Handler) CarDelete(c *gin.Context) {
 	//GET THE ID FROM URL
 	id := c.Param("id")
 
-	deleteService := services.NewCarService(store.GetStore())
+	// deleteService := services.NewCarService(store.GetStore())
 	//Delete car
-	err := deleteService.CarDelete(c, id)
+	err := h.Service.CarDelete(id)
 	if err!= nil {
         c.JSON(400, gin.H{"error": "Failed to delete the car"})
         return
     }
 
 	//Respond
-	c.Status(200)
+	c.JSON(200, gin.H{
+		"status": "car deleted successfully",
+	})
 }
