@@ -47,16 +47,4 @@ func (h *Handler) CarsCreate(c *gin.Context) {
 		"car": "Car Create successfully",
 	})
 
-	//Create cars
-	// car := &models.Car{ID: carContent.ID, COMPANY_NAME: carContent.COMPANY_NAME, CAR_NAME: carContent.CAR_NAME, YEAR: carContent.YEAR, PRICE: carContent.PRICE}
-	// h.service.CarsCreate(c, car)
-
-	// // if result.Error != nil {
-	// // 	c.Status(400)
-	// // 	return
-	// // }
-
-	// c.JSON(200, gin.H{
-	// 	"car": car,
-	// })
 }

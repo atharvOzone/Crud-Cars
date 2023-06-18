@@ -42,20 +42,10 @@ func GetStore() Store {
 
 
 func (s *DBCarStore) CarsCreate(car models.Car) error {
-	// result := s.DB.Create(car)
-	// if result.Error!= nil {
-    //     return result.Error
-    // }
-	// return nil
 	return s.DB.Create(car).Error
 }
 
 func (s *DBCarStore) CarDelete(id string) error {
-	// result := s.DB.Delete(&models.Car{},id)
-	// if result.Error!= nil {
-    //     return result.Error
-    // }
-	// return nil
 	return s.DB.Delete(&models.Car{}, id).Error
 }
 

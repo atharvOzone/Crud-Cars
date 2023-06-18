@@ -16,11 +16,6 @@ import (
 // @Param        car body models.Car true "Car"
 // @Router       /cars/:id [put]
 func (h *Handler) UpdateCarByID(c *gin.Context) {
-	//GET ID FROM URL
-	// updateService := services.NewCarService(store.GetStore())
-	// updateService.UpdateCarByID(c)
-	// //RESPOND WITH THE DATA
-
 	id := c.Param("car_id")
 	req := models.CreateCarRequest{}
 	err := c.Bind(&req)

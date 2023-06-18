@@ -15,8 +15,6 @@ import (
 func (h *Handler) CarDelete(c *gin.Context) {
 	//GET THE ID FROM URL
 	id := c.Param("id")
-
-	// deleteService := services.NewCarService(store.GetStore())
 	//Delete car
 	err := h.Service.CarDelete(id)
 	if err!= nil {
